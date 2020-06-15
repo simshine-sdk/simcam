@@ -1,0 +1,114 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SimCam Software Development Kit</title>
+  <meta name="description" content="这是一个 index 页面">
+  <meta name="keywords" content="index">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+    <p class="browsehappy">The browser you are using is <strong>outdated</strong>, please update your browser for a better experience</p>
+<![endif]-->
+
+<header class="am-topbar admin-header">
+  <div class="am-topbar-brand">
+    <strong>SimCam SDK DashBoard</strong> 
+  </div>
+
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">menu</span> <span class="am-icon-bars"></span></button>
+
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="am-cf admin-main">
+  <!-- sidebar start -->
+  <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+    <div class="am-offcanvas-bar admin-offcanvas-bar">
+      <ul class="am-list admin-sidebar-list">
+        <li><a href="admin-index.html"><span class="am-icon-home"></span> Home</a></li>
+        <li class="admin-parent">
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> Demo <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+            <li><a href="admin-command.html" class="am-cf"><span class="am-icon-check"></span> Send Command</a></li>
+            <li><a href="admin-stream.html"><span class="am-icon-puzzle-piece"></span> Create Live Stream<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a href="admin-event.html"><span class="am-icon-th"></span> Redirect Event</a></li>
+            <li><a href="admin-all.html"><span class="am-icon-calendar"></span> Web App</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><span class="am-icon-sign-out"></span> Logout</a></li>
+      </ul>
+
+      <div class="am-panel am-panel-default admin-sidebar-panel">
+        <div class="am-panel-bd">
+          <p><span class="am-icon-bookmark"></span> Resources</p>
+          <p>相关产品及资源连接</p>
+          <p>© 2020 SimShine, Inc. Licensed under MIT license.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- sidebar end -->
+
+  <!-- content start -->
+  <div class="admin-content">
+
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Create Live Stream</strong></div>
+    </div>
+
+    <div class="am-g">
+      <div class="am-u-sm-12">
+        <table class="am-table am-table-bd am-table-striped admin-content-table">
+          <thead>
+          <tr>
+            <th>Hardware ID</th><th>Name</th><th>Device Type</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr><td>1</td><td>John Clark</td><td><a href="#">SimCam 1s</a></td>
+            <td>
+                <a href="#"><button type="button" class="am-btn am-btn-secondary"> <i> connect</i></button></a>
+            </td>
+          </tr>
+          <tr><td>2</td><td>风清扬</td><td><a href="#">SimCam 1s</a> </td>
+            <td>
+                <a href="#"><button type="button" class="am-btn am-btn-secondary"> <i> connect</i></button></a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+
+<a href="#" class="am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}">
+  <span class="am-icon-btn am-icon-th-list"></span>
+</a>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>SimCam Software Development Kit</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="alternate icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+  <style>
+    .get {
+      background: #1E5B94;
+      color: #fff;
+      text-align: center;
+      padding: 60px 0;
+    }
+
+    .get-title {
+      font-size: 200%;
+      border: 2px solid #fff;
+      padding: 20px;
+      display: inline-block;
+    }
+
+    .get-btn {
+      background: #fff;
+    }
+
+    .detail {
+      background: #fff;
+    }
+
+    .detail-h2 {
+      text-align: center;
+      font-size: 150%;
+      margin: 40px 0;
+    }
+
+    .detail-h3 {
+      color: #1f8dd6;
+    }
+
+    .detail-p {
+      color: #7f8c8d;
+    }
+
+    .detail-mb {
+      margin-bottom: 30px;
+    }
+
+    .hope {
+      background: #0bb59b;
+      padding: 50px 0;
+    }
+
+    .hope-img {
+      text-align: center;
+    }
+
+    .hope-hr {
+      border-color: #149C88;
+    }
+
+    .hope-title {
+      font-size: 140%;
+    }
+
+    .about {
+      background: #fff;
+      padding: 40px 0;
+      color: #7f8c8d;
+    }
+
+    .about-color {
+      color: #34495e;
+    }
+
+    .about-title {
+      font-size: 180%;
+      padding: 30px 0 50px 0;
+      text-align: center;
+    }
+
+    .footer p {
+      color: #7f8c8d;
+      margin: 0;
+      padding: 15px 0;
+      text-align: center;
+      background: #2d3e50;
+    }
+  </style>
+</head>
+<body>
+<!--header class="am-topbar am-topbar-fixed-top">
+  <div class="am-container">
+    <h1 class="am-topbar-brand">
+      <a href="#">SimCam Software Development Kit</a>
+    </h1>
+</header-->
+
+<div class="get">
+  <div class="am-g">
+    <div class="am-u-lg-12">
+      <h1 class="get-title">SimCam Software Development Kit - Getting Start</h1>
+      <p>
+      A Cross-Platform Runtime Support Library for SimCam, an easy way to build private AI vision processing system 
+    </div>
+  </div>
+</div>
+
+<div class="detail">
+  <div class="am-g am-container">
+    <div class="am-u-lg-12">
+        <h2 class="detail-h2">
+            <img class="am-radius" src="/doc/img/simcam_sdk.jpg" /><br />
+            <small>SDK Structure Diagram</small>
+        </h2>
+
+      <div class="am-g">
+        <div class="am-u-lg-4 am-u-md-6 am-u-sm-12 detail-mb">
+          <h3 class="detail-h3">
+            <i class="am-icon-cogs am-icon-sm"></i>
+            SDK Runtime Support
+          </h3>
+
+          <p class="detail-p">
+            A cross-platform runtime service library.
+            Built-in P2P Interface Bridge to transform complex P2P communication process into  more general interfaces
+          </p>
+        </div>
+        <div class="am-u-lg-4 am-u-md-6 am-u-sm-12 detail-mb">
+          <h3 class="detail-h3">
+            <i class="am-icon-check-square-o am-icon-sm"></i>
+            RESTful APIs & RTSP
+          </h3>
+
+          <p class="detail-p">
+          A set of RESTful API interfaces for controlling SimCam.
+          Get live and playback media stream through RTSP.
+          </p>
+        </div>
+        <div class="am-u-lg-4 am-u-md-6 am-u-sm-12 detail-mb">
+          <h3 class="detail-h3">
+            <i class="am-icon-send-o am-icon-sm"></i>
+            Documentation & Dashboard
+          </h3>
+
+          <p class="detail-p">
+          Built-in interface documentation and dashboard for interface debugging. 
+          We will provide a series of source code to demonstrate how to use a few lines of python code to interact with SimCam 
+          and how to develop web applications for SimCam.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="about">
+  <div class="am-g am-container">
+    <div class="am-u-lg-12">
+        <article class="am-article">
+            <div class="am-article-hd">
+                <h1 class="am-article-title">1 Start Runtime support library</h1>
+            </div>
+            <div class="am-article-bd">
+              <p>run application with the default port 8000<br />
+              <pre>./simcam_sdk_env</pre></p>
+
+              <p>run application with other port <br />
+              <pre>./simcam_sdk_env 80</pre></p>
+            </div>
+
+            <div class="am-article-hd">
+              <h1 class="am-article-title">2 Login the build-in Dashboard</h1>
+            </div>
+            <div class="am-article-bd">
+              <p>Open your web browser and visit the following URL:<br />
+              <code>127.0.0.1:8000</code><br />
+              Enter the user account registered on the phone, log in and use Dashboard to test the RESTful interfaces.Every time you log in, the server will verify the account and return a token, which will be used to verify the user interface permissions</p>
+            </div>
+
+            <div class="am-article-hd">
+              <h1 class="am-article-title">3 Try to get the camera list from server</h1>
+            </div>
+            <div class="am-article-bd">
+                <div class="am-panel am-panel-primary">
+                    <div class="am-panel-hd am-cf" id="getdevicelist-hd">Step 2: GetDeviceList 
+                        <button type="button" class="am-btn am-btn-warning am-fr" onclick=req_devices()>Try It</button> 
+                        <a href="/doc/index.html#api-2-DeviceMgmt-GetDeviceList" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                    </div>
+                    <div id="device-list" class="am-panel-bd"> </div>
+                </div>
+                <p>Click "Try It" to test <i>GetDeviceList</i> Api, "See Detail" to view the interface description</p>
+            </div>
+
+
+            <div class="am-article-hd">
+                <h1 class="am-article-title">4 Try to establish a P2P channel with Camera</h1>
+            </div>
+            <div class="am-article-bd">
+                <div class="am-panel am-panel-primary">
+                    <div class="am-panel-hd am-cf" id="getdevicelist-hd">2: GetDeviceList 
+                        <button type="button" class="am-btn am-btn-warning am-fr" onclick=req_devices()>Try It</button> 
+                        <a href="/doc/index.html#api-2-DeviceMgmt-GetDeviceList" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                    </div>
+                    <div id="device-list" class="am-panel-bd"> 
+                        <table class="am-table am-table-bd am-table-striped admin-content-table">
+                            <thead><tr><th>Hardware ID</th><th>Name</th><th>Device Type</th></tr></thead>
+                            <tbody>
+                                <tr><td>{{hardwareid}}</td> <td>{{name}}</td><td>{{type}}</td>
+                                    <td><button type="button" class="am-btn am-btn-secondary" onclick=req_connect("{{hardwareid}}")><i>connect</i></button>
+                                        <a href="/doc/index.html#api-2-DeviceMgmt-ConnectDevice" target="_blank"><button type="button"  class="am-btn am-btn-default">See Detail</button></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p>Click "connect" to test <i>ConnectDevice</i> Api</p>
+            </div>
+
+            <div class="am-article-hd">
+                <h1 class="am-article-title">5 Send <i>KeepAlive</i> to SDK Runtime Library</h1>
+            </div>
+            <div class="am-article-bd">
+                <div class="am-panel am-panel-warning">
+                    <div class="am-panel-hd am-cf" id="keepalive-hd">Should run it every 5 minutes: KeepAlive 
+                        <button type="button" class="am-btn am-btn-warning am-fr" onclick=req_keepalive()>Try It</button> 
+                        <a href="/doc/index.html#api-1-UserLogin-Keepalive" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                    </div>
+                </div>
+                <p>The function of calling this interface is to keep the token available, and the token will be re-verified every 10 minutes. </p>
+            </div>
+
+            <div class="am-article-hd">
+                <h1 class="am-article-title">6 Create and view live streams</h1>
+            </div>
+            <div class="am-article-bd">
+                <div class="am-panel am-panel-primary">
+                    <div class="am-panel-hd am-cf" id="openstream-hd">OpenStream
+                        <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_openstream()">Try It</button> 
+                        <a href="/doc/index.html#api-3-Stream-OpenStream" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                    </div>
+                    <div class="am-panel-bd"> 
+                        <div class="am-form">
+                            <label for="devices">Hardware ID:</label>
+                            <select class="devices" id="openstream-id">
+                                <option>Run GetDeviceList firstly</option>
+                            </select>
+                            <label>Type:</label>
+                            <select id="openstream-type">
+                                <option>rtsp</option>
+                            </select>
+                            <label>Port:</label><br/>
+                            <input type="text" class="am-form-field" id="openstream-port" value="8554" />
+                            <br />
+                            <input type="text" class="am-form-field" id="openstream-username" placeholder="Username"  />
+                            <input type="text" class="am-form-field" id="openstream-password" placeholder="Password"  />
+                        </div>
+                        <pre id="openstream-ret" class="am-pre-scrollable"> </pre>
+                    </div>
+                </div>
+                <p>After calling this interface, the SDK will return a usable RTSP URL like the following format:<br />
+                <code>rtsp://127.0.0.1:8554/live</code> <br />
+                You can try to open the live stream by VLC Media Player.</p>
+                <p>You can also connect to another SimCam and create a new live stream at the same time</p>
+            </div>
+
+
+            <div class="am-article-hd">
+                <h1 class="am-article-title">7 Redirect SimCam event message to your private server</h1>
+            </div>
+            <div class="am-article-bd">
+                <div class="am-panel am-panel-primary">
+                    <div class="am-panel-hd am-cf" id="redirectevent-hd">RedirectEvent
+                        <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_redirectevent()">Try It</button> 
+                        <a href="/doc/index.html#api-4-Event-RedirectEvent" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                    </div>
+                    <div class="am-panel-bd"> 
+                        <div class="am-form">
+                            <label for="devices">Hardware ID:</label>
+                            <select class="devices" id="redirectevent-id">
+                                <option>Run GetDeviceList firstly</option>
+                            </select>
+                            <label>Name:</label>
+                            <select id="redirectevent-name">
+                                <option>all</option>
+                                <option>person</option>
+                                <option>faceid</option>
+                                <option>pets</option>
+                                <option>vehicle_enter</option>
+                                <option>vehicle_exit</option>
+                            </select>
+                            <br />
+                            <input type="text" class="am-form-field" id="redirectevent-url" placeholder="please enter the url you want to bind" />
+                            <pre id="redirectevent-ret" class="am-pre-scrollable"> </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© 2020 SimShine, Inc.</a> Licensed under <a
+      href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>. by the SimCam Team.</p>
+</footer>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+</body>
+</html>
