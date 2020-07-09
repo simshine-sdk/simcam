@@ -727,7 +727,7 @@ function req_closestream(){
         action:action
     };
     $.ajax({
-           url:'/simcam/stream/close'+$("#closestream-id").val(), 
+           url:'/simcam/stream/close/'+$("#closestream-id").val(), 
            type:'POST',
            data:reqJson,
            dataType:'json',
@@ -806,7 +806,7 @@ function req_redirectevent(){
         url:url
     };
     $.ajax({
-           url:'/simcam/event/redirect'+$("#redirectevent-id").val(), 
+           url:'/simcam/event/redirect/'+$("#redirectevent-id").val(), 
            type:'POST',
            data:reqJson,
            dataType:'json',
@@ -832,7 +832,7 @@ function req_unbindevent(){
         name:name,
     };
     $.ajax({
-           url:'/simcam/event/unbind'+$("#unbindevent-id").val(), 
+           url:'/simcam/event/unbind/'+$("#unbindevent-id").val(), 
            type:'POST',
            data:reqJson,
            dataType:'json',

@@ -21,6 +21,13 @@
 > Enter the user account registered on the phone, log in and use Dashboard to test the RESTful interfaces.Every time you log in, the server will verify the account and return a token, which will be used to verify the user interface permissions
 
 
+### Ongoing development work
+- Fix the bugs of segment fault in RTSP Server
+- Improve documentation and draw workflow diagrams  
+
 ### Release Note
 > 2020.07.08 v0.0.2:
 > - Add LAN mode. In this mode, the client can access the service interface through the host IP running the simcam_sdk_env service.
+> 2020.07.09 v0.0.2:
+> - Add URL Decoder to fix the issuses about Event Redirect Function
+> - Add parameter exceeds length error return
