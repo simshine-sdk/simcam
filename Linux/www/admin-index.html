@@ -66,7 +66,7 @@
         <ul class="am-nav">
           <li style="line-height:0.8em" class="am-nav-header">UserLogin</li>
           <li style="line-height:0.8em"><a href="#login-hd">Login</a></li>
-          <li style="line-height:0.8em"><a href="#keepalive-hd">KeepAlive</a></li>
+          <!--li style="line-height:0.8em"><a href="#keepalive-hd">KeepAlive</a></li-->
           <li style="line-height:0.8em"><a href="#logout-hd">Logout</a></li>
           <li style="line-height:0.8em" class="am-nav-header" style="line-height:0.8em">DeviceMgmt</li>
           <li style="line-height:0.8em"><a href="#getdevicelist-hd">GetDeviceList</a></li>
@@ -114,7 +114,7 @@
                   <div id="device-list" class="am-panel-bd"> </div>
               </div>
 
-              <div class="am-panel am-panel-warning">
+              <!--div class="am-panel am-panel-warning">
                   <div class="am-panel-hd am-cf" id="keepalive-hd">Should run it every 5 minutes: KeepAlive 
                       <button type="button" class="am-btn am-btn-warning am-fr" onclick=req_keepalive()>Try It</button> 
                       <a href="/doc/index.html#api-1-UserLogin-Keepalive" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
@@ -122,7 +122,7 @@
                   <div class="am-panel-bd"> 
                       <pre id="keepalive-ret" class="am-pre-scrollable" > </pre>
                   </div>
-              </div>
+              </div-->
 
               <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
               <div class="am-cf am-padding">
@@ -256,7 +256,8 @@
                           </select>
                           <label>Type:</label>
                           <select id="openstream-type">
-                              <option>rtsp</option>
+                            <option>rtsp</option>
+                            <option>hls</option>
                           </select>
                           <label>Port:</label><br/>
                           <input type="text" class="am-form-field" id="openstream-port" value="8554" />
@@ -642,35 +643,37 @@ function req_resetwifi(){
 };
 
 function req_openstream(){ 
-    var port = $("#openstream-port").val();
-    var name = $("#openstream-username").val();
-    var pwd = $("#openstream-password").val();
-    var reqJson = {
-        port:port
-    };
-    if( name!="" && pwd!=""){
-        reqJson["username"] = name;
-        reqJson["password"] = pwd;
-    }
-    $.ajax({
-           url:'/simcam/stream/open/'+$("#openstream-id").val(), 
-           type:'POST',
-           data:reqJson,
-           dataType:'json',
-           beforeSend: function (XMLHttpRequest) {
-               XMLHttpRequest.setRequestHeader("Authorization", token);
-               var ret = $("#openstream-ret");
-               ret.empty();
-           },
-           success:function(data){
-               var ret = $("#openstream-ret");
-               ret.append(JSON.stringify(data));
-           },
-           error:function(data){
-             var ret = $("#openstream-ret");
-             ret.append(parse_err(data));
-           }
-    })
+  var type = $("#openstream-type").val();
+  var port = $("#openstream-port").val();
+  var name = $("#openstream-username").val();
+  var pwd = $("#openstream-password").val();
+  var reqJson = {
+    type:type,
+    port:port
+  };
+  if( name!="" && pwd!=""){
+    reqJson["username"] = name;
+    reqJson["password"] = pwd;
+  }
+  $.ajax({
+         url:'/simcam/stream/open/'+$("#openstream-id").val(), 
+         type:'POST',
+         data:reqJson,
+         dataType:'json',
+         beforeSend: function (XMLHttpRequest) {
+           XMLHttpRequest.setRequestHeader("Authorization", token);
+           var ret = $("#openstream-ret");
+           ret.empty();
+         },
+         success:function(data){
+           var ret = $("#openstream-ret");
+           ret.append(JSON.stringify(data));
+         },
+         error:function(data){
+           var ret = $("#openstream-ret");
+           ret.append(parse_err(data));
+         }
+  })
 };
 
 function req_getstreaminfo(){ 
@@ -859,6 +862,10 @@ function parse_err(data){
             "Response:"+JSON.stringify(data.responseJSON);
   if(JSON.stringify(data.status)==401){
     window.location.replace("/");
+  }else if(JSON.stringify(data.status)==400){
+      if(data.responseText.indexOf("device not found")!=-1){
+          window.location.replace("/");
+      }
   }
   return ret;
 }
