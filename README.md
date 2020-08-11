@@ -1,4 +1,4 @@
-### SimCam Software Development Kit v0.0.5
+### SimCam Software Development Kit v0.0.6
 - A cross-platform runtime service library. Built-in P2P Interface Bridge to transform complex P2P communication process into more general interfaces
 - A set of RESTful API interfaces for controlling SimCam. Get live and playback media stream through RTSP.
 - Built-in interface documentation and dashboard for interface debugging. We will provide a series of source code to demonstrate how to use a few lines of python code to interact with SimCam and how to develop web applications for SimCam.
@@ -26,6 +26,9 @@
 - Cross compile the version that runs on the Raspberry Pi
 
 ### Release Note
+> 2020.08.11 v0.0.6
+> - Deprecated "ConnectDevice" API. P2P creation process will be completed automatically 
+
 > 2020.08.09 v0.0.5
 > - Automatically establish p2p connection after login
 > - Establish a p2p connection pool
