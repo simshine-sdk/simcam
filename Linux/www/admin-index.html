@@ -75,6 +75,7 @@
           <li style="line-height:0.8em"><a href="#setdevicestate-hd">SetDeviceState</a></li>
           <li style="line-height:0.8em"><a href="#rotatepan-hd">RotatePan</a></li>
           <li style="line-height:0.8em"><a href="#formatsdcard-hd">FormatSDCard</a></li>
+          <li style="line-height:0.8em"><a href="#reboot-hd">Reboot</a></li>
           <li style="line-height:0.8em"><a href="#resetwifi-hd">ResetWifi</a></li>
           <li style="line-height:0.8em" class="am-nav-header">Stream</li>
           <li style="line-height:0.8em"><a href="#openstream-hd">OpenStream</a></li>
@@ -220,6 +221,22 @@
                       </div>
                       <pre id="formatsdcard-ret" class="am-pre-scrollable"> </pre>
                   </div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                <div class="am-panel-hd am-cf" id="reboot-hd">Reboot
+                  <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_reboot()">Try It</button> 
+                  <a href="/doc/index.html#api-2-DeviceMgmt-Reboot" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                </div>
+                <div class="am-panel-bd"> 
+                  <div class="am-form">
+                    <label for="devices">Hardware ID:</label>
+                    <select class="devices" id="reboot-id">
+                      <option>Run GetDeviceList firstly</option>
+                    </select>
+                  </div>
+                  <pre id="reboot-ret" class="am-pre-scrollable"> </pre>
+                </div>
               </div>
 
               <div class="am-panel am-panel-primary">
@@ -627,6 +644,32 @@ function req_formatsdcard(){
            }
     })
 };
+
+function req_reboot(){ 
+    var reqJson = {
+        action:"do"
+    };
+    $.ajax({
+           url:'/simcam/devicemgmt/reboot/'+$("#reboot-id").val(), 
+           type:'POST',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#reboot-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#reboot-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#reboot-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
 
 function req_resetwifi(){ 
     var reqJson = {

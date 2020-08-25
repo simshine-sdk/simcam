@@ -117,7 +117,7 @@ define({ "api": [
     "type": "post",
     "url": "/login",
     "title": "Login",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "Login",
     "group": "1-UserLogin",
     "permission": [
@@ -236,7 +236,7 @@ define({ "api": [
     "type": "get",
     "url": "/logout",
     "title": "Logout",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "Logout",
     "group": "1-UserLogin",
     "permission": [
@@ -336,7 +336,7 @@ define({ "api": [
     "type": "post",
     "url": "/devicemgmt/connect",
     "title": "ConnectDevice",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "ConnectDevice",
     "group": "2-DeviceMgmt",
     "permission": [
@@ -449,7 +449,7 @@ define({ "api": [
     "type": "post",
     "url": "/devicemgmt/sdcard/format/:hardwareid",
     "title": "FormatSDCard",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "FormatSDCard",
     "group": "2-DeviceMgmt",
     "permission": [
@@ -569,7 +569,7 @@ define({ "api": [
     "type": "get",
     "url": "/devicemgmt",
     "title": "GetDeviceList",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "GetDeviceList",
     "group": "2-DeviceMgmt",
     "permission": [
@@ -697,7 +697,7 @@ define({ "api": [
     "type": "get",
     "url": "/devicemgmt/state/:hardwareid",
     "title": "GetDeviceState",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "GetDeviceState",
     "group": "2-DeviceMgmt",
     "permission": [
@@ -903,6 +903,13 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
+            "field": "wifi_signal",
+            "description": "<p>Wifi signal strength</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
             "field": "return",
             "description": "<p><code>&quot;success&quot;</code> if everything went fine</p>"
           }
@@ -911,7 +918,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Example",
-          "content": " HTTP/1.1 200 OK\n{\n     \"state\":\"online\",\n     \"luminance\":\"50\",\n     \"contrast\":\"50\",\n     \"saturation\":\"50\",\n     \"flip_v\":\"off\",\n     \"flip_h\":\"off\",\n     \"resolution\":\"1080\", \"nightvision\":\"on\", \"tracking\":\"off\", \"sdcard\":\"normal\",\n     \"nas\":\"//192.168.1.2/path\",\n     \"led\":\"on\",\n     \"rtsp\":\"rtsp://192.168.1.11/live\",\n     \"person_det\":\"on\",\n     \"car_det\":\"on\",\n     \"pets_det\":\"on\",\n     \"face_det\":\"on\",\n     \"zone_show\":\"off\",\n     \"monitor_show\":\"off\",\n     \"h265\":\"on\",\n     \"lan_mode\":\"off\",\n     \"wifi\":\"name_of_ssid\",\n     \"firmware\":\"20200501\",\n     \"timezone\":\"America/Los_Angeles\",\n     \"return\":\"success\"\n  }",
+          "content": " HTTP/1.1 200 OK\n{\n     \"state\":\"online\",\n     \"luminance\":\"50\",\n     \"contrast\":\"50\",\n     \"saturation\":\"50\",\n     \"flip_v\":\"off\",\n     \"flip_h\":\"off\",\n     \"resolution\":\"1080\", \"nightvision\":\"on\", \"tracking\":\"off\", \"sdcard\":\"normal\",\n     \"nas\":\"//192.168.1.2/path\",\n     \"led\":\"on\",\n     \"rtsp\":\"rtsp://192.168.1.11/live\",\n     \"person_det\":\"on\",\n     \"car_det\":\"on\",\n     \"pets_det\":\"on\",\n     \"face_det\":\"on\",\n     \"zone_show\":\"off\",\n     \"monitor_show\":\"off\",\n     \"h265\":\"on\",\n     \"lan_mode\":\"off\",\n     \"wifi\":\"name_of_ssid\",\n     \"firmware\":\"20200501\",\n     \"timezone\":\"America/Los_Angeles\",\n     \"wifi_signal\":\"80%\",\n     \"return\":\"success\"\n  }",
           "type": "json"
         }
       ]
@@ -976,9 +983,129 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/devicemgmt/reboot/:hardwareid",
+    "title": "Reboot",
+    "version": "0.0.7",
+    "name": "Reboot",
+    "group": "2-DeviceMgmt",
+    "permission": [
+      {
+        "name": "admin",
+        "title": "Admin access rights needed.",
+        "description": "<p>validate users's token.</p>"
+      }
+    ],
+    "description": "<p>This operation will clear wifi configuration. SimCam will go to scanning QR Code process.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "hardwareid",
+            "description": "<p>The hardware ID of the device</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "action",
+            "description": "<p><code>&quot;do&quot;</code></p>"
+          }
+        ]
+      }
+    },
+    "examples": [
+      {
+        "title": "Curl example",
+        "content": "curl -H \"Authorization: token_xxxx\" http://127.0.0.1:8000/simcam/devicemgmt/reboot/:hardwareid -d \"action=do\"",
+        "type": "curl"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Example",
+          "content": "HTTP/1.1 200 OK\n{\n    \"return\":\"success\"\n}",
+          "type": "json"
+        }
+      ],
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "return",
+            "description": "<p><code>&quot;success&quot;</code> if everything went fine</p>"
+          }
+        ]
+      }
+    },
+    "filename": "../SimCamSDK/main_api.js",
+    "groupTitle": "2-DeviceMgmt",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>The token can be generated from <code>/login</code> or <code>/keepalive</code>.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example",
+          "content": "\"Authorization: token_xxxx\"",
+          "type": "Header"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "return",
+            "description": "<p><code>error</code></p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "result",
+            "description": "<p><code>p2p disconnected</code><br/> <code>p2p timeout</code><br/> <code>invalid param</code><br/> <code>device not found</code><br/></p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Response Bad Request:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"return\":\"error\",\n  \"result\":\"p2p timeout\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Response No Auth:",
+          "content": "HTTP/1.1 401 No Auth\n{\n  \"return\":\"error\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Response Not Found:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"return\":\"error\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
     "url": "/devicemgmt/wifi/reset/:hardwareid",
     "title": "ResetWifi",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "ResetWifi",
     "group": "2-DeviceMgmt",
     "permission": [
@@ -1098,7 +1225,7 @@ define({ "api": [
     "type": "post",
     "url": "/devicemgmt/pan/rotate/:hardwareid",
     "title": "RotatePan",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "RotatePan",
     "group": "2-DeviceMgmt",
     "permission": [
@@ -1218,7 +1345,7 @@ define({ "api": [
     "type": "post",
     "url": "/devicemgmt/state/:hardwareid",
     "title": "SetDeviceState",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "SetDeviceState",
     "group": "2-DeviceMgmt",
     "permission": [
@@ -1632,7 +1759,7 @@ define({ "api": [
     "type": "post",
     "url": "/devicemgmt/firmware/update/:hardwareid",
     "title": "UpdateFirmware",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "UpdateFirmware",
     "group": "2-DeviceMgmt",
     "permission": [
@@ -1752,7 +1879,7 @@ define({ "api": [
     "type": "post",
     "url": "/stream/close/:hardwareid",
     "title": "CloseStream",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "CloseStream",
     "group": "3-Stream",
     "permission": [
@@ -1872,7 +1999,7 @@ define({ "api": [
     "type": "get",
     "url": "/stream/:hardwareid",
     "title": "GetStreamInfo",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "GetStreamInfo",
     "group": "3-Stream",
     "permission": [
@@ -1993,7 +2120,7 @@ define({ "api": [
     "type": "get",
     "url": "/stream",
     "title": "GetStreamList",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "GetStreamList",
     "group": "3-Stream",
     "permission": [
@@ -2121,7 +2248,7 @@ define({ "api": [
     "type": "post",
     "url": "/stream/open/:hardwareid",
     "title": "OpenStream",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "OpenStream",
     "group": "3-Stream",
     "permission": [
@@ -2290,7 +2417,7 @@ define({ "api": [
     "type": "get",
     "url": "/event/:hardwareid",
     "title": "GetEventInfo",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "GetEventInfo",
     "group": "4-Event",
     "permission": [
@@ -2411,7 +2538,7 @@ define({ "api": [
     "type": "post",
     "url": "/event/redirect/:hardwareid",
     "title": "RedirectEvent",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "RedirectEvent",
     "group": "4-Event",
     "permission": [
@@ -2531,7 +2658,7 @@ define({ "api": [
     "type": "post",
     "url": "/event/unbind/:hardwareid",
     "title": "UnbindEvent",
-    "version": "0.0.3",
+    "version": "0.0.7",
     "name": "UnbindEvent",
     "group": "4-Event",
     "permission": [

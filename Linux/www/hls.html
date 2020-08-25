@@ -1,18 +1,17 @@
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-<!-- Or if you want a more recent alpha version -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@alpha"></script> -->
 <video id="video" style="width:50%"></video>
 <button id="play">play</button>
 <script>
   var video = document.getElementById('video');
-  var videoSrc = '/8554/playlist.m3u8';
+video.muted = true;
+var videoSrc = '/8554/playlist.m3u8';
   if (Hls.isSupported()) {
     var hls = new Hls();
     hls.loadSource(videoSrc);
     hls.attachMedia(video);
     hls.on(Hls.Events.MANIFEST_PARSED, function() {
-      //video.play();
+      video.play();
     });
   }
   // hls.js is not supported on platforms that do not have Media Source
@@ -31,13 +30,13 @@
   else if (video.canPlayType('application/vnd.apple.mpegurl')) {
     video.src = videoSrc;
     video.addEventListener('loadedmetadata', function() {
-      //video.play();
+      video.play();
     });
   }
 
-$("#play").click(function(){
-    alert("play");
-    video.play();
-});
+//$("#play").click(function(){
+//    alert("play");
+//    video.play();
+//});
 </script>
 
