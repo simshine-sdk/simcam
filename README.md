@@ -22,9 +22,11 @@
 
 
 ### Ongoing development work
-- Cross compile the version that runs on the Raspberry Pi
+- Cross compile the version that runs on Andriod
 
 ### Release Note
+> 2020.08.29 v0.0.7
+> - Cross compiled the version that runs on the Raspberry Pi
 > 2020.08.25 v0.0.7
 > - Remove the dependency of ffmpeg library 
 > - Added wifi signal strength return
