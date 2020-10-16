@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>SimCam Software Development Kit</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="alternate icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+  <style>
+    .header {
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 200%;
+      color: #333;
+      margin-top: 30px;
+    }
+    .header p {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <div class="am-g">
+    <h1>SimCam Software Development Kit</h1>
+    <p>You can develop your own private intelligent vision system without any cloud services based on this SDK.<br>
+    The web app we demonstrated here can be used directly to interact with our security cameras.</p>
+  </div>
+  <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+  <a href="/getting-start.html" target="_blank"><button type="button" class="am-btn am-btn-secondary am-round"><i>&nbsp;&nbsp;Getting Started &nbsp;&nbsp;</i></button></a>
+  <a href="/doc/index.html" target="_blank"><button type="button" class="am-btn am-btn-success am-round"><i>REST API Document</i></button></a>
+</div>
+<div class="am-g">
+  <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+      <h3>登录账户</h3>
+    <hr/>
+    <form method="post" class="am-form">
+      <label for="doc-select-1">Server:</label>
+      <select id="doc-select-1" name="server">
+        <option value="SimHome">SimHome</option>
+        <option value="星AI">星AI</option>
+      </select>
+      <br>
+      <label for="email">Username:</label>
+      <input type="email" name="name" id="email" value="">
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" name="pwd" id="password" value="">
+      <br>
+      <!--label for="remember-me">
+        <input id="remember-me" type="checkbox">
+        remeber me
+      </label-->
+      <br />
+      <div class="am-cf">
+        <input type="button" name="" value="Login" onclick="login()" class="am-btn am-btn-primary am-btn-sm am-fl">
+        <!--input type="submit" name="" value="Register" class="am-btn am-btn-warning am-btn-sm am-fl" style="margin-left:10px">
+        <input type="submit" name="" value="Forgot it ^_^?" class="am-btn am-btn-default am-btn-sm am-fr"-->
+      </div>
+    </form>
+    <hr>
+    <p>© 2020 SimShine, Inc. Licensed under MIT license.</p>
+  </div>
+</div>
+
+<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+<script type="text/javascript">
+
+function login(){
+    var name = $("#email").val();
+    var pwd = $("#password").val();
+    var server = $("#doc-select-1").val();
+    var reqJson = {
+        name:name,
+        pwd:pwd,
+        server:server,
+    };
+
+    $.ajax({
+           url:'/simcam/login', // 服务器请求地址
+           type:'POST', // 默认值: "GET")。请求方式 ("POST" 或 "GET")， 默认为 "GET"。
+           data:reqJson,//服务器请求数据
+           contentType:'application/x-www-form-urlencoded; charset=utf-8',
+           dataType:'json',// 返回类型
+           success:function(data){
+               if(data.return == "success"){
+                   //设置cookie
+                   setCookie("return_token",data.token);
+                   window.location.replace("/admin-index.html");
+               }
+           },
+           error:function(data){
+             report_err(data);
+           }
+    })
+}
+
+function report_err(data){
+   alert("Response Status:"+JSON.stringify(data.status)+" "+JSON.stringify(data.statusText)+"\r\n"+
+         "Response:"+JSON.stringify(data.responseJSON))
+}
+
+function setCookie(name, value) {
+    document.cookie=name+"="+value+";path=/";
+}
+</script>
+
+
+</body>
+</html>

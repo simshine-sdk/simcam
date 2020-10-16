@@ -1,0 +1,944 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SimCam Software Development Kit</title>
+  <meta name="description" content="这是一个 index 页面">
+  <meta name="keywords" content="index">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+<!--[if lte IE 9]>
+    <p class="browsehappy">The browser you are using is <strong>outdated</strong>, please update your browser for a better experience</p>
+<![endif]-->
+
+<header class="am-topbar admin-header">
+  <div class="am-topbar-brand">
+    <strong>SimCam SDK DashBoard</strong> 
+  </div>
+
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">menu</span> <span class="am-icon-bars"></span></button>
+
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="admin-main am-cf">
+  <!-- sidebar start -->
+  <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+    <div class="am-offcanvas-bar admin-offcanvas-bar">
+      <ul class="am-list admin-sidebar-list">
+        <li><a href="#home"><span class="am-icon-home"></span> Home</a></li>
+        <li class="admin-parent">
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> Demo <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+            <li><a href="#sendcommand" class="am-cf"><span class="am-icon-check"></span> Send Command</a></li>
+            <li><a href="#createlivestream"><span class="am-icon-puzzle-piece"></span> Create Live Stream</a></li>
+            <li><a href="#redirectevent"><span class="am-icon-th"></span> Redirect Event</a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick=logout() id="logout-hd"><span class="am-icon-sign-out"></span> Logout</a></li>
+      </ul>
+
+      <div class="am-panel am-panel-default admin-sidebar-panel">
+        <div class="am-panel-bd">
+          <!--p><span class="am-icon-bookmark"></span> Resources</p-->
+          <p>© 2020 SimShine, Inc. Licensed under MIT license.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="api-list" class="am-panel am-panel-default admin-sidebar-panel">
+      <div class="am-panel-bd">
+        <p><span class="am-icon-bookmark"></span> APIs List</p>
+        <ul class="am-nav">
+          <li style="line-height:0.8em" class="am-nav-header">UserLogin</li>
+          <li style="line-height:0.8em"><a href="#login-hd">Login</a></li>
+          <!--li style="line-height:0.8em"><a href="#keepalive-hd">KeepAlive</a></li-->
+          <li style="line-height:0.8em"><a href="#logout-hd">Logout</a></li>
+          <li style="line-height:0.8em" class="am-nav-header" style="line-height:0.8em">DeviceMgmt</li>
+          <li style="line-height:0.8em"><a href="#getdevicelist-hd">GetDeviceList</a></li>
+          <li style="line-height:0.8em"><a href="#getdevicelist-hd">ConnectDevice</a></li>
+          <li style="line-height:0.8em"><a href="#getdevicestate-hd">GetDeviceState</a></li>
+          <li style="line-height:0.8em"><a href="#setdevicestate-hd">SetDeviceState</a></li>
+          <li style="line-height:0.8em"><a href="#rotatepan-hd">RotatePan</a></li>
+          <li style="line-height:0.8em"><a href="#formatsdcard-hd">FormatSDCard</a></li>
+          <li style="line-height:0.8em"><a href="#reboot-hd">Reboot</a></li>
+          <li style="line-height:0.8em"><a href="#resetwifi-hd">ResetWifi</a></li>
+          <li style="line-height:0.8em" class="am-nav-header">Stream</li>
+          <li style="line-height:0.8em"><a href="#openstream-hd">OpenStream</a></li>
+          <li style="line-height:0.8em"><a href="#getstreaminfo-hd">GetStreamInfo</a></li>
+          <li style="line-height:0.8em"><a href="#getstreamlist-hd">GetStreamList</a></li>
+          <li style="line-height:0.8em"><a href="#closestream-hd">CloseStream</a></li>
+          <li style="line-height:0.8em" class="am-nav-header">Event</li>
+          <li><a style="line-height:0.8em" href="#geteventinfo-hd">GetEventInfo</a></li>
+          <li><a style="line-height:0.8em" href="#redirectevent-hd">RedirectEvent</a></li>
+          <li><a style="line-height:0.8em" href="#unbindevent-hd">UnbindEvent</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  <!-- sidebar end -->
+
+  <!-- content start -->
+  <div class="admin-content">
+      <div class="am-g">
+          <div class="am-u-sm-12">
+              <div class="am-cf am-padding">
+                  <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">Home</strong></div>
+              </div>
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="login-hd">Step 1: Login
+                      <a href="/doc/index.html#api-1-UserLogin-Login" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div id="user-token" class="am-panel-bd"> </div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="getdevicelist-hd">Step 2: GetDeviceList 
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick=req_devices()>Try It</button> 
+                      <a href="/doc/index.html#api-2-DeviceMgmt-GetDeviceList" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div id="device-list" class="am-panel-bd"> </div>
+              </div>
+
+              <!--div class="am-panel am-panel-warning">
+                  <div class="am-panel-hd am-cf" id="keepalive-hd">Should run it every 5 minutes: KeepAlive 
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick=req_keepalive()>Try It</button> 
+                      <a href="/doc/index.html#api-1-UserLogin-Keepalive" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <pre id="keepalive-ret" class="am-pre-scrollable" > </pre>
+                  </div>
+              </div-->
+
+              <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+              <div class="am-cf am-padding">
+                  <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" id="sendcommand">Send Command</strong></div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="getdevicestate-hd">GetDeviceState
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_getdevicestate()">Try It</button> 
+                      <a href="/doc/index.html#api-2-DeviceMgmt-GetDeviceState" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <div class="am-form">
+                          <label for="devices">Hardware ID:</label>
+                          <select class="devices" id="getdevicestate-id">
+                              <option>Run GetDeviceList firstly</option>
+                          </select>
+                      </div>
+                      <pre id="getdevicestate-ret" class="am-pre-scrollable"> </pre>
+                  </div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="setdevicestate-hd">SetDeviceState
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_setdevicestate()">Try It</button> 
+                      <a href="/doc/index.html#api-2-DeviceMgmt-SetDeviceState" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <div class="am-form">
+                          <label for="devices">Hardware ID:</label>
+                          <select class="devices" id="setdevicestate-id">
+                              <option>Run GetDeviceList firstly</option>
+                          </select>
+                          <label>State:</label>
+                          <select id="setdevicestate-state">
+                              <option>luminance</option>
+                              <option>contrast</option>
+                              <option>saturation</option>
+                              <option>flip_v</option>
+                              <option>flip_h</option>
+                              <option>resolution</option>
+                              <option>nightvision</option>
+                              <option>tracking</option>
+                              <option>nas</option>
+                              <option>led</option>
+                              <option>person_det</option>
+                              <option>car_det</option>
+                              <option>pets_det</option>
+                              <option>face_det</option>
+                              <option>zone_show</option>
+                              <option>monitor_show</option>
+                              <option>h265</option>
+                              <option>lan_mode</option>
+                              <option>timezone</option>
+                          </select>
+                          <input type="text" class="am-form-field" id="setdevicestate-val" placeholder="state value" />
+                      </div>
+                      <pre id="setdevicestate-ret" class="am-pre-scrollable"> </pre>
+                  </div>
+              </div>
+
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="rotatepan-hd">RotatePan
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_rotatepan()">Try It</button> 
+                      <a href="/doc/index.html#api-2-DeviceMgmt-RotatePan" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <div class="am-form">
+                          <label for="devices">Hardware ID:</label>
+                          <select class="devices" id="rotatepan-id">
+                              <option>Run GetDeviceList firstly</option>
+                          </select>
+                          <label>Direction:</label>
+                          <select id="rotatepan-val">
+                              <option>left</option>
+                              <option>right</option>
+                          </select>
+                      </div>
+                      <pre id="rotatepan-ret" class="am-pre-scrollable"> </pre>
+                  </div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="formatsdcard-hd">FormatSDCard
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_formatsdcard()">Try It</button> 
+                      <a href="/doc/index.html#api-2-DeviceMgmt-FormatSDCard" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <div class="am-form">
+                          <label for="devices">Hardware ID:</label>
+                          <select class="devices" id="formatsdcard-id">
+                              <option>Run GetDeviceList firstly</option>
+                          </select>
+                      </div>
+                      <pre id="formatsdcard-ret" class="am-pre-scrollable"> </pre>
+                  </div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                <div class="am-panel-hd am-cf" id="reboot-hd">Reboot
+                  <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_reboot()">Try It</button> 
+                  <a href="/doc/index.html#api-2-DeviceMgmt-Reboot" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                </div>
+                <div class="am-panel-bd"> 
+                  <div class="am-form">
+                    <label for="devices">Hardware ID:</label>
+                    <select class="devices" id="reboot-id">
+                      <option>Run GetDeviceList firstly</option>
+                    </select>
+                  </div>
+                  <pre id="reboot-ret" class="am-pre-scrollable"> </pre>
+                </div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="resetwifi-hd">ResetWifi
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_resetwifi()">Try It</button> 
+                      <a href="/doc/index.html#api-2-DeviceMgmt-ResetWifi" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <div class="am-form">
+                          <label for="devices">Hardware ID:</label>
+                          <select class="devices" id="resetwifi-id">
+                              <option>Run GetDeviceList firstly</option>
+                          </select>
+                      </div>
+                      <pre id="resetwifi-ret" class="am-pre-scrollable"> </pre>
+                  </div>
+              </div>
+
+              <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+              <div class="am-cf am-padding">
+                  <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" id="createlivestream">Create Live Stream</strong></div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="openstream-hd">OpenStream
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_openstream()">Try It</button> 
+                      <a href="/doc/index.html#api-3-Stream-OpenStream" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <div class="am-form">
+                          <label for="devices">Hardware ID:</label>
+                          <select class="devices" id="openstream-id">
+                              <option>Run GetDeviceList firstly</option>
+                          </select>
+                          <label>Type:</label>
+                          <select id="openstream-type">
+                            <option>rtsp</option>
+                            <option>hls</option>
+                          </select>
+                          <label>Port:</label><br/>
+                          <input type="text" class="am-form-field" id="openstream-port" value="8554" />
+                          <br />
+                          <input type="text" class="am-form-field" id="openstream-username" placeholder="Username"  />
+                          <input type="text" class="am-form-field" id="openstream-password" placeholder="Password"  />
+                      </div>
+                      <pre id="openstream-ret" class="am-pre-scrollable"> </pre>
+                  </div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="getstreaminfo-hd">GetStreamInfo
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_getstreaminfo()">Try It</button> 
+                      <a href="/doc/index.html#api-3-Stream-GetStreamInfo" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <div class="am-form">
+                          <label for="devices">Hardware ID:</label>
+                          <select class="devices" id="getstreaminfo-id">
+                              <option>Run GetDeviceList firstly</option>
+                          </select>
+                          <pre id="getstreaminfo-ret" class="am-pre-scrollable"> </pre>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="getstreamlist-hd">GetStreamList
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_getstreamlist()">Try It</button> 
+                      <a href="/doc/index.html#api-3-Stream-GetStreamList" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <pre id="getstreamlist-ret" class="am-pre-scrollable"> </pre>
+                  </div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="closestream-hd">CloseStream
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_closestream()">Try It</button> 
+                      <a href="/doc/index.html#api-3-Stream-CloseStream" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <div class="am-form">
+                          <label for="devices">Hardware ID:</label>
+                          <select class="devices" id="closestream-id">
+                              <option>Run GetDeviceList firstly</option>
+                          </select>
+                          <pre id="closestream-ret" class="am-pre-scrollable"> </pre>
+                      </div>
+                  </div>
+              </div>
+
+              <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+              <div class="am-cf am-padding">
+                  <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg" id="redirectevent">Rediret Event</strong></div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="geteventinfo-hd">GetEventInfo
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_geteventinfo()">Try It</button> 
+                      <a href="/doc/index.html#api-4-Event-GetEventInfo" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <div class="am-form">
+                          <label for="devices">Hardware ID:</label>
+                          <select class="devices" id="geteventinfo-id">
+                              <option>Run GetDeviceList firstly</option>
+                          </select>
+                          <pre id="geteventinfo-ret" class="am-pre-scrollable"> </pre>
+                      </div>
+                  </div>
+              </div>
+
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="redirectevent-hd">RedirectEvent
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_redirectevent()">Try It</button> 
+                      <a href="/doc/index.html#api-4-Event-RedirectEvent" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <div class="am-form">
+                          <label for="devices">Hardware ID:</label>
+                          <select class="devices" id="redirectevent-id">
+                              <option>Run GetDeviceList firstly</option>
+                          </select>
+                          <label>Name:</label>
+                          <select id="redirectevent-name">
+                              <option>all</option>
+                              <option>person</option>
+                              <option>faceid</option>
+                              <option>pets</option>
+                              <option>vehicle_enter</option>
+                              <option>vehicle_exit</option>
+                          </select>
+                          <br />
+                          <input type="text" class="am-form-field" id="redirectevent-url" placeholder="please enter the url you want to bind" />
+                          <pre id="redirectevent-ret" class="am-pre-scrollable"> </pre>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="am-panel am-panel-primary">
+                  <div class="am-panel-hd am-cf" id="unbindevent-hd">UnbindEvent
+                      <button type="button" class="am-btn am-btn-warning am-fr" onclick="req_unbindevent()">Try It</button> 
+                      <a href="/doc/index.html#api-4-Event-UnbindEvent" target="_blank"><button type="button"  class="am-btn am-btn-default am-fr">See Detail</button></a> 
+                  </div>
+                  <div class="am-panel-bd"> 
+                      <div class="am-form">
+                          <label for="devices">Hardware ID:</label>
+                          <select class="devices" id="unbindevent-id">
+                              <option>Run GetDeviceList firstly</option>
+                          </select>
+                          <label>Name:</label>
+                          <select id="unbindevent-name">
+                              <option>all</option>
+                              <option>person</option>
+                              <option>faceid</option>
+                              <option>pets</option>
+                              <option>vehicle_enter</option>
+                              <option>vehicle_exit</option>
+                          </select>
+                          <pre id="unbindevent-ret" class="am-pre-scrollable"> </pre>
+                      </div>
+                  </div>
+              </div>
+
+
+          </div>
+      </div>
+  </div>
+
+  
+
+
+  <!-- content end -->
+
+  <a href="#" class="am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}">
+      <span class="am-icon-btn am-icon-th-list"></span>
+  </a>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/handlebars.min.js"></script>
+<script src="assets/js/amazeui.widgets.helper.js"></script>
+
+<script type="text/javascript">
+
+var token = getCookie("return_token"); 
+
+var token_html='<p>You have got a token <b>{{this}}</b> from our server now.</p>'
+$(function() { 
+    var template = Handlebars.compile(token_html);
+    var userToken = $("#user-token");
+    userToken.empty();
+    userToken.append(template(token));
+    $("#api-list").sticky({ top:10});
+    req_devices();
+});
+
+//var list_html='<table class="am-table am-table-bd am-table-striped admin-content-table">' +
+//'<thead><tr><th>Hardware ID</th><th>Name</th><th>Device Type</th></tr></thead>' +
+//'<tbody>{{#each devices}}' +
+//'<tr><td>{{hardwareid}}</td> <td>{{name}}</td><td>{{type}}</td>' +
+//'<td><button type="button" class="am-btn am-btn-secondary" onclick=req_connect("{{hardwareid}}")><i>connect</i></button> ' +
+//'<a href="/doc/index.html#api-2-DeviceMgmt-ConnectDevice" target="_blank"><button type="button"  class="am-btn am-btn-default">See Detail</button></a>' +
+//'</td></tr>'+
+//'{{/each}}'+
+//'</tbody></table>';
+var list_html='<table class="am-table am-table-bd am-table-striped admin-content-table">' +
+'<thead><tr><th>Hardware ID</th><th>Name</th><th>Device Type</th></tr></thead>' +
+'<tbody>{{#each devices}}' +
+'<tr><td>{{hardwareid}}</td> <td>{{name}}</td><td>{{type}}</td></tr>'+
+'{{/each}}'+
+'</tbody></table>';
+
+
+var devices_option_html='{{#each devices}}<option value="{{hardwareid}}">{{hardwareid}}&nbsp&nbsp&nbsp&nbsp[name:{{name}}]</option>{{/each}}'
+//var devices_option_html='<option value="{{hardwareid}}">{{hardwareid}}</option>'
+function req_devices(){
+    $.ajax({
+           url:'/simcam/devicemgmt', 
+           type:'GET',
+           data:{},
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var deviceList = $("#device-list");
+               deviceList.empty();
+               var devices_option = $(".devices")
+               devices_option.empty();
+           },
+           success:function(data){
+               var template = Handlebars.compile(list_html);
+               var deviceList = $("#device-list");
+               deviceList.append(template(data));
+
+               var template2 = Handlebars.compile(devices_option_html);
+               var devices_option = $(".devices")
+               devices_option.append(template2(data));
+           },
+           error:function(data){
+             alert(parse_err(data));
+           }
+    })
+}
+
+
+function req_connect(hwid){
+    var reqJson = {
+        hardwareid:hwid
+    };
+    $.ajax({
+           url:'/simcam/devicemgmt/connect', 
+           type:'POST',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var devices_option = $(".devices");
+               devices_option.empty();
+           },
+           success:function(data){
+               if(data.return == "success"){
+                   var template = Handlebars.compile(devices_option_html);
+                   var devices_option = $(".devices")
+                   console.log(template(reqJson));
+                   devices_option.append(template(reqJson));
+                   alert(JSON.stringify(data));
+               }else{
+                   alert(JSON.stringify(data));
+               }
+           },
+           error:function(data){
+               alert(parse_err(data));
+           }
+    })
+}
+
+
+function req_keepalive(){
+    $.ajax({
+           url:'/simcam/keepalive', 
+           type:'GET',
+           data:{},
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#keepalive-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#keepalive-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#keepalive-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+
+function req_getdevicestate(){ 
+    $.ajax({
+           url:'/simcam/devicemgmt/state/'+$("#getdevicestate-id").val(), 
+           type:'GET',
+           data:{},
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#getdevicestate-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#getdevicestate-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#getdevicestate-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+
+function req_setdevicestate(){ 
+    var reqStr = '{\"'+$("#setdevicestate-state").val()+'":"'+$("#setdevicestate-val").val()+'\"}'
+    var reqJson = JSON.parse(reqStr);
+    $.ajax({
+           url:'/simcam/devicemgmt/state/'+$("#setdevicestate-id").val(), 
+           type:'POST',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#setdevicestate-ret");               
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#setdevicestate-ret");               
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#setdevicestate-ret");               
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+
+function req_rotatepan(){ 
+    var reqJson = {
+        direction:$("#rotatepan-val").val()
+    };
+    $.ajax({
+           url:'/simcam/devicemgmt/pan/rotate/'+$("#rotatepan-id").val(), 
+           type:'POST',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#rotatepan-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#rotatepan-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#rotatepan-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+function req_formatsdcard(){ 
+    var reqJson = {
+        action:"do"
+    };
+    $.ajax({
+           url:'/simcam/devicemgmt/sdcard/format/'+$("#formatsdcard-id").val(), 
+           type:'POST',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#formatsdcard-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#formatsdcard-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#formatsdcard-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+function req_reboot(){ 
+    var reqJson = {
+        action:"do"
+    };
+    $.ajax({
+           url:'/simcam/devicemgmt/reboot/'+$("#reboot-id").val(), 
+           type:'POST',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#reboot-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#reboot-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#reboot-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+
+function req_resetwifi(){ 
+    var reqJson = {
+        action:"do"
+    };
+    $.ajax({
+           url:'/simcam/devicemgmt/wifi/reset/'+$("#resetwifi-id").val(), 
+           type:'POST',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#resetwifi-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#resetwifi-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#resetwifi-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+function req_openstream(){ 
+  var type = $("#openstream-type").val();
+  var port = $("#openstream-port").val();
+  var name = $("#openstream-username").val();
+  var pwd = $("#openstream-password").val();
+  var reqJson = {
+    type:type,
+    port:port
+  };
+  if( name!="" && pwd!=""){
+    reqJson["username"] = name;
+    reqJson["password"] = pwd;
+  }
+  $.ajax({
+         url:'/simcam/stream/open/'+$("#openstream-id").val(), 
+         type:'POST',
+         data:reqJson,
+         dataType:'json',
+         beforeSend: function (XMLHttpRequest) {
+           XMLHttpRequest.setRequestHeader("Authorization", token);
+           var ret = $("#openstream-ret");
+           ret.empty();
+         },
+         success:function(data){
+           var ret = $("#openstream-ret");
+           ret.append(JSON.stringify(data));
+         },
+         error:function(data){
+           var ret = $("#openstream-ret");
+           ret.append(parse_err(data));
+         }
+  })
+};
+
+function req_getstreaminfo(){ 
+    var reqJson = {
+    };
+    $.ajax({
+           url:'/simcam/stream/'+$("#getstreaminfo-id").val(), 
+           type:'GET',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#getstreaminfo-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#getstreaminfo-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#getstreaminfo-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+function req_getstreamlist(){ 
+    var reqJson = {
+    };
+    $.ajax({
+           url:'/simcam/stream', 
+           type:'GET',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#getstreamlist-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#getstreamlist-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#getstreamlist-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+function req_closestream(){ 
+    var action = "do";
+    var reqJson = {
+        action:action
+    };
+    $.ajax({
+           url:'/simcam/stream/close/'+$("#closestream-id").val(), 
+           type:'POST',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#closestream-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#closestream-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#closestream-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+
+function logout(){ 
+    var reqJson = {
+    };
+    $.ajax({
+           url:'/simcam/logout', 
+           type:'GET',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+           },
+           success:function(data){
+               if(data.return == "success"){
+                   window.location.replace("/");
+               }else{
+                   alert("Logout error:"+JSON.stringify(data));
+               }
+           },
+           error:function(data){
+               alert(parse_err(data));
+           }
+    })
+};
+
+
+function req_geteventinfo(){ 
+    var reqJson = {
+    };
+    $.ajax({
+           url:'/simcam/event/'+$("#geteventinfo-id").val(), 
+           type:'GET',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#geteventinfo-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#geteventinfo-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#geteventinfo-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+
+function req_redirectevent(){ 
+    var name = $("#redirectevent-name").val();
+    var url = $("#redirectevent-url").val();
+    var reqJson = {
+        name:name,
+        url:url
+    };
+    $.ajax({
+           url:'/simcam/event/redirect/'+$("#redirectevent-id").val(), 
+           type:'POST',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#redirectevent-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#redirectevent-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#redirectevent-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+function req_unbindevent(){ 
+    var name = $("#unbindevent-name").val();
+    var reqJson = {
+        name:name,
+    };
+    $.ajax({
+           url:'/simcam/event/unbind/'+$("#unbindevent-id").val(), 
+           type:'POST',
+           data:reqJson,
+           dataType:'json',
+           beforeSend: function (XMLHttpRequest) {
+               XMLHttpRequest.setRequestHeader("Authorization", token);
+               var ret = $("#unbindevent-ret");
+               ret.empty();
+           },
+           success:function(data){
+               var ret = $("#unbindevent-ret");
+               ret.append(JSON.stringify(data));
+           },
+           error:function(data){
+               var ret = $("#unbindevent-ret");
+               ret.append(parse_err(data));
+           }
+    })
+};
+
+
+
+function parse_err(data){
+  var ret = "Response Status:"+JSON.stringify(data.status)+" "+JSON.stringify(data.statusText)+"\r\n"+
+            "Response:"+JSON.stringify(data.responseJSON);
+  if(JSON.stringify(data.status)==401){
+    window.location.replace("/");
+  }else if(JSON.stringify(data.status)==400){
+      if(data.responseText.indexOf("device not found")!=-1){
+          window.location.replace("/");
+      }
+  }
+  return ret;
+}
+
+function getCookie(name) {
+　　if (document.cookie.length>0) {
+　　　　var start = document.cookie.indexOf(name + '=');
+　　　　if (start !== -1) {
+　　　　　　start = start + name.length + 1;
+　　　　　　var end = document.cookie.indexOf(';', start);
+　　　　　　if (end === -1) {
+　　　　　　　　end = document.cookie.length;
+　　　　　　　　return unescape(document.cookie.substring(start, end));
+　　　　　　}
+　　　}
+　　}
+　　return '';
+}
+</script>
+
+</body>
+</html>
